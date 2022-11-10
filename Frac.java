@@ -5,8 +5,8 @@ import java.awt.event.*;
 public class Frac implements ActionListener {
   JFrame frame, helperFrame;
   JPanel panel;
-  JTextArea fracOne, fracTwo, equalSign, calculation;
-  JLabel fracOneLabel, fracTwoLabel, calcLabel, helperText;
+  JTextArea fracOne, fracTwo, arithmeticSign, calculation;
+  JLabel fracOneLabel, fracTwoLabel, equalSign, calcLabel, helperText;
   JButton calculate, simplify;
   JMenuBar menuBar;
   JMenu operation, help, quit;
@@ -29,10 +29,10 @@ public class Frac implements ActionListener {
     fracTwo.setText("Enter Fraction Two");
     fracTwoLabel = new JLabel("Fraction 2: ");
 
-    equalSign = new JTextArea();
-    equalSign.setText("=");
-    equalSign.setEditable(false);
-
+    arithmeticSign = new JTextArea();
+    arithmeticSign.setEditable(false);
+    equalSign = new JLabel("=");
+    
     calculation = new JTextArea();
     calculation.setEditable(false);
 
@@ -72,10 +72,12 @@ public class Frac implements ActionListener {
     menuBar.add(help);
     menuBar.add(quit);
     
-    panel.add(fracOneLabel);
+    // panel.add(fracOneLabel);
     panel.add(fracOne);
 
-    panel.add(fracTwoLabel);
+    panel.add(arithmeticSign);
+
+    // panel.add(fracTwoLabel);
     panel.add(fracTwo);
 
     panel.add(equalSign);
@@ -89,12 +91,20 @@ public class Frac implements ActionListener {
   public void actionPerformed(ActionEvent e) {
     if (e.getSource() == quitItem) {
       System.exit(0);
-    } if (e.getSource() == helpItem) {
+    } else if (e.getSource() == helpItem) {
       helperFrame = new JFrame();
       helperFrame.setSize(200,200);
       helperFrame.setVisible(true);
       helperText = new JLabel("---help---\n1.Choose an Operation to use to calculate\n2.Select quit to exit the program");
       helperFrame.add(helperText);
+    } else if (e.getSource() == addItem) {
+      arithmeticSign.setText("+");
+    } else if (e.getSource() == subtractItem) {
+      arithmeticSign.setText("-");
+    } else if (e.getSource() == multiplyItem) {
+      arithmeticSign.setText("x");
+    } else if (e.getSource() == divideItem) {
+      arithmeticSign.setText("/");
     }
   }
 
