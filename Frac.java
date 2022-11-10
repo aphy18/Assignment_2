@@ -35,8 +35,10 @@ public class Frac {
     calculation = new JTextArea();
     calculation.setEditable(false);
 
-    // menus
+    // menu bar
     menuBar = new JMenuBar();
+
+    // menus
     operation = new JMenu("Operation");
     help = new JMenu("Help");
     quit = new JMenu("Quit");
@@ -45,7 +47,7 @@ public class Frac {
     addItem = new JMenuItem("+");
     subtractItem = new JMenuItem("-");
     multiplyItem = new JMenuItem("x");
-    subtractItem = new JMenuItem("/");
+    divideItem = new JMenuItem("/");
 
     helpItem = new JMenuItem("Help");
     quitItem = new JMenuItem("Quit");
