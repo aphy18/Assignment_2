@@ -74,18 +74,18 @@ public String divideRationals(int num2, int denom2) {
     return numerator + "/" + denominator;
 }
 
-public String reduceRational(int num,int denom){
-    int gcd = 1;
-    for (int i=1; i <= (num <= denom? num: denom); i++) {
-        if (num % i == 0 && denom % i == 0) {
-            gcd = i;
-        }
-    }
+// public String reduceRational(int num,int denom){
+//     int gcd = 1;
+//     for (int i=1; i <= (num <= denom? num: denom); i++) {
+//         if (num % i == 0 && denom % i == 0) {
+//             gcd = i;
+//         }
+//     }
 
-    String numStr = Integer.toString(num / gcd);
-    String denomStr = Integer.toString(denom / gcd);
+//     String numStr = Integer.toString(num / gcd);
+//     String denomStr = Integer.toString(denom / gcd);
 
-    return numStr + '/' + denomStr;
-    }
+//     return numStr + '/' + denomStr;
+//     }
 
 }

@@ -31,6 +31,7 @@ public class Frac implements ActionListener {
 
     arithmeticSign = new JTextArea();
     arithmeticSign.setEditable(false);
+    arithmeticSign.setText("sign");
     equalSign = new JLabel("=");
     
     calculation = new JTextArea();
@@ -97,7 +98,26 @@ public class Frac implements ActionListener {
 
   }
 
+  private String reduceRational(int num,int denom){
+    int gcd = 1;
+    for (int i=1; i <= (num <= denom? num: denom); i++) {
+        if (num % i == 0 && denom % i == 0) {
+            gcd = i;
+        }
+    }
+
+    String numStr = Integer.toString(num / gcd);
+    String denomStr = Integer.toString(denom / gcd);
+
+    return numStr + '/' + denomStr;
+  }
+
   public void actionPerformed(ActionEvent e) {
+    String fracOneStr = fracOne.getText();
+    String fracTwoStr = fracTwo.getText();
+    String calcText = calculation.getText();
+    String caseOperation = arithmeticSign.getText();
+    
     if (e.getSource() == quitItem) {
       System.exit(0);
     } else if (e.getSource() == helpItem) {
@@ -116,12 +136,9 @@ public class Frac implements ActionListener {
       arithmeticSign.setText("/");
     } else if (e.getSource() == calculate) {
       try {
-        String fracOneStr = fracOne.getText();
-        String fracTwoStr = fracTwo.getText();
-        String caseOperation = arithmeticSign.getText();
-  
         int num1 = Integer.parseInt(fracOneStr.substring(0,fracOneStr.indexOf('/')));
         int denom1 = Integer.parseInt(fracOneStr.substring(fracOneStr.indexOf('/') + 1));
+
         int num2 = Integer.parseInt(fracTwoStr.substring(0,fracTwoStr.indexOf('/')));
         int denom2 = Integer.parseInt(fracTwoStr.substring(fracTwoStr.indexOf('/') + 1));
 
@@ -152,6 +169,21 @@ public class Frac implements ActionListener {
       } catch (Exception err) {
         System.out.println("Input not properly integrated");
       }
+    } else if (e.getSource() == simplify) {
+  
+      int num1 = Integer.parseInt(fracOneStr.substring(0,fracOneStr.indexOf('/')));
+      int denom1 = Integer.parseInt(fracOneStr.substring(fracOneStr.indexOf('/') + 1));
+
+      int num2 = Integer.parseInt(fracTwoStr.substring(0,fracTwoStr.indexOf('/')));
+      int denom2 = Integer.parseInt(fracTwoStr.substring(fracTwoStr.indexOf('/') + 1));
+
+      int calcNum = Integer.parseInt(calcText.substring(0, calcText.indexOf('/')));
+      int calcDenom = Integer.parseInt(calcText.substring(calcText.indexOf('/') + 1));
+
+      fracOne.setText(reduceRational(num1, denom1));
+      fracTwo.setText(reduceRational(num2, denom2));
+      calculation.setText(reduceRational(calcNum, calcDenom));
+
     }
   }
 
