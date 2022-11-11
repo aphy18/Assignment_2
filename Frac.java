@@ -224,24 +224,13 @@ public class Frac implements ActionListener {
         int denom1 = Integer.parseInt(fracOneStr.substring(fracOneStr.indexOf('/') + 1));
         int num2 = Integer.parseInt(fracTwoStr.substring(0,fracTwoStr.indexOf('/')));
         int denom2 = Integer.parseInt(fracTwoStr.substring(fracTwoStr.indexOf('/') + 1));
-
-        if (calcText != null) {
-          int calcNum = Integer.parseInt(calcText.substring(0, calcText.indexOf('/')));
-          int calcDenom = Integer.parseInt(calcText.substring(calcText.indexOf('/') + 1));
-          calculation.setText(reduceRational(calcNum, calcDenom));
-        } else {
-          int num1Calc = Integer.parseInt(fracOneCalcStr.substring(0, fracOneCalcStr.indexOf('/')));
-          int denom1Calc = Integer.parseInt(fracOneCalcStr.substring(fracOneCalcStr.indexOf('/') + 1));
-          int num2Calc = Integer.parseInt(fracTwoCalcStr.substring(0, fracTwoCalcStr.indexOf('/')));
-          int denom2Calc = Integer.parseInt(fracTwoCalcStr.substring(fracTwoCalcStr.indexOf('/') + 1));
-          fracOneCalc.setText(reduceRational(num1Calc, denom1Calc));
-          fracTwoCalc.setText(reduceRational(num2Calc, denom2Calc));
-        }
-
+        int calcNum = Integer.parseInt(calcText.substring(0, calcText.indexOf('/')));
+        int calcDenom = Integer.parseInt(calcText.substring(calcText.indexOf('/') + 1));
+        
         fracOne.setText(reduceRational(num1, denom1));
         fracTwo.setText(reduceRational(num2, denom2));
-        
-        
+        calculation.setText(reduceRational(calcNum, calcDenom));
+  
       } catch (Exception error) {
         System.out.println("ERROR: Input not properly integrated.");
       }
