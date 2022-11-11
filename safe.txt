@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.TimerTask;
+import java.util.logging.Handler;
 
 
 public class Frac implements ActionListener {
@@ -7,12 +9,19 @@ public class Frac implements ActionListener {
   JFrame frame, helperFrame;
   JPanel panel, helperPanel;
   JTextArea fracOne, fracTwo, arithmeticSign, calculation, helperText;
-  JLabel equalSign, calcLabel;
+  JLabel equalSign, calcLabel, imgLabel;
   JButton calculate, simplify;
+  ImageIcon waitGIF;
   JMenuBar menuBar;
   JMenu operation, help, quit;
   JMenuItem addItem, subtractItem, multiplyItem, divideItem, helpItem, quitItem;
-
+  JMenuItem powerItemOne, powerItemTwo;
+  JMenuItem cubeItemOne, cubeItemTwo;
+  JMenuItem rootItemOne, rootItemTwo;
+  JMenuItem sinItemOne, sinItemTwo;
+  JMenuItem cosItemOne, cosItemTwo;
+  JMenuItem tanItemOne, tanItemTwo;
+  
   public Frac() {
     // setting frame
     frame = new JFrame();
@@ -55,6 +64,19 @@ public class Frac implements ActionListener {
     subtractItem = new JMenuItem("-");
     multiplyItem = new JMenuItem("x");
     divideItem = new JMenuItem("/");
+    powerItemOne = new JMenuItem("** (Frac One)");
+    powerItemTwo = new JMenuItem("** (Frac Two)");
+    cubeItemOne = new JMenuItem("** 3 (Frac One)");
+    cubeItemTwo = new JMenuItem("** 3 (Frac Two)");
+    rootItemOne = new JMenuItem("√ (Frac One)");
+    rootItemTwo = new JMenuItem("√ (Frac Two)");
+    sinItemOne = new JMenuItem("sin (Frac One)");
+    sinItemTwo = new JMenuItem("sin (Frac Two)");
+    cosItemOne = new JMenuItem("cos (Frac One)");
+    cosItemTwo = new JMenuItem("cos (Frac Two)");
+    tanItemOne = new JMenuItem("tan (Frac Two)");
+    tanItemTwo = new JMenuItem("tan (Frac Two)");
+
     addItem.addActionListener(this);
     subtractItem.addActionListener(this);
     multiplyItem.addActionListener(this);
@@ -64,11 +86,28 @@ public class Frac implements ActionListener {
     helpItem.addActionListener(this);
     quitItem.addActionListener(this);
 
+    // GIF
+    waitGIF = new ImageIcon(getClass().getResource("wait.gif"));
+    imgLabel = new JLabel(waitGIF);
+    imgLabel.setVisible(false);
+
     // adding menuItems to the menu
     operation.add(addItem);
     operation.add(subtractItem);
     operation.add(multiplyItem);
     operation.add(divideItem);
+    operation.add(powerItemOne);
+    operation.add(cubeItemOne);
+    operation.add(rootItemOne);
+    operation.add(sinItemOne);
+    operation.add(cosItemOne);
+    operation.add(tanItemOne);
+    operation.add(powerItemTwo);
+    operation.add(cubeItemTwo);
+    operation.add(rootItemTwo);
+    operation.add(sinItemTwo);
+    operation.add(cosItemTwo);
+    operation.add(tanItemTwo);
     help.add(helpItem);
     quit.add(quitItem);
 
@@ -85,6 +124,7 @@ public class Frac implements ActionListener {
     panel.add(calculation);
     panel.add(calculate);
     panel.add(simplify);
+    panel.add(imgLabel);
 
     // adding panel + setting menu bar to frame
     frame.add(panel);
@@ -130,14 +170,16 @@ public class Frac implements ActionListener {
       arithmeticSign.setText("/");
     } else if (e.getSource() == calculate) {
       try {
+        
         int num1 = Integer.parseInt(fracOneStr.substring(0,fracOneStr.indexOf('/')));
         int denom1 = Integer.parseInt(fracOneStr.substring(fracOneStr.indexOf('/') + 1));
-
         int num2 = Integer.parseInt(fracTwoStr.substring(0,fracTwoStr.indexOf('/')));
         int denom2 = Integer.parseInt(fracTwoStr.substring(fracTwoStr.indexOf('/') + 1));
-
+        
         Operations firstFrac = new Operations(num1, denom1);
-
+        
+        
+        
         switch (caseOperation) {
           case "+":
             String add = firstFrac.addRationals(num2, denom2);
@@ -156,7 +198,7 @@ public class Frac implements ActionListener {
             calculation.setText(divide);
           break;
           default:
-          System.out.println("Not a proper oepration");
+          System.out.println("Not a proper operation");
           break;
         }
 
@@ -167,10 +209,8 @@ public class Frac implements ActionListener {
       try {
         int num1 = Integer.parseInt(fracOneStr.substring(0,fracOneStr.indexOf('/')));
         int denom1 = Integer.parseInt(fracOneStr.substring(fracOneStr.indexOf('/') + 1));
-
         int num2 = Integer.parseInt(fracTwoStr.substring(0,fracTwoStr.indexOf('/')));
         int denom2 = Integer.parseInt(fracTwoStr.substring(fracTwoStr.indexOf('/') + 1));
-
         int calcNum = Integer.parseInt(calcText.substring(0, calcText.indexOf('/')));
         int calcDenom = Integer.parseInt(calcText.substring(calcText.indexOf('/') + 1));
 

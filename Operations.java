@@ -74,18 +74,13 @@ public String divideRationals(int num2, int denom2) {
     return numerator + "/" + denominator;
 }
 
-// public String reduceRational(int num,int denom){
-//     int gcd = 1;
-//     for (int i=1; i <= (num <= denom? num: denom); i++) {
-//         if (num % i == 0 && denom % i == 0) {
-//             gcd = i;
-//         }
-//     }
+public String squareRational(int n1, int d1) {
+    double squareN1 = Math.pow((double) n1, 2);
+    double squareD1 = Math.pow((double) d1, 2);
 
-//     String numStr = Integer.toString(num / gcd);
-//     String denomStr = Integer.toString(denom / gcd);
-
-//     return numStr + '/' + denomStr;
-//     }
+    System.out.println("N1: " + squareN1);
+    System.out.println("D1: " + squareD1);
+    return squareN1 + "/" + squareD1;
+}
 
 }

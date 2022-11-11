@@ -1,19 +1,21 @@
 import javax.swing.*;
 import java.awt.event.*;
 import java.util.TimerTask;
+import java.util.logging.Handler;
 
 
 public class Frac implements ActionListener {
 
   JFrame frame, helperFrame;
   JPanel panel, helperPanel;
-  JTextArea fracOne, fracTwo, arithmeticSign, calculation, helperText;
-  JLabel equalSign, calcLabel, imgLabel;
+  JTextArea fracOne, fracTwo, arithmeticSign, calculation, helperText, fracOneCalc, fracTwoCalc;
+  JLabel equalSign, calcLabel, imgLabel, fracOneLabel, fracTwoLabel;
   JButton calculate, simplify;
   ImageIcon waitGIF;
   JMenuBar menuBar;
   JMenu operation, help, quit;
   JMenuItem addItem, subtractItem, multiplyItem, divideItem, helpItem, quitItem;
+  JMenuItem powerItem, cubeItem, rootItem, sinItem, cosItem, tanItem;
 
   public Frac() {
     // setting frame
@@ -31,12 +33,21 @@ public class Frac implements ActionListener {
     fracTwo = new JTextArea();
     arithmeticSign = new JTextArea();
     calculation = new JTextArea();
+    fracOneCalc = new JTextArea();
+    fracTwoCalc = new JTextArea();
+
     fracOne.setText("Enter Fraction One");
     fracTwo.setText("Enter Fraction Two");
     arithmeticSign.setText("sign");
     arithmeticSign.setEditable(false);
     calculation.setEditable(false);
+    fracOneCalc.setEditable(false);
+    fracTwoCalc.setEditable(false);
     equalSign = new JLabel("=");
+
+    // text area labels
+    fracOneLabel = new JLabel("Frac One Calculation: ");
+    fracTwoLabel = new JLabel("Frac Two Calculation: ");
     
     // buttons + action listeners
     calculate = new JButton("Calculate");
@@ -57,12 +68,22 @@ public class Frac implements ActionListener {
     subtractItem = new JMenuItem("-");
     multiplyItem = new JMenuItem("x");
     divideItem = new JMenuItem("/");
+    powerItem = new JMenuItem("**");
+    cubeItem = new JMenuItem("**3");
+    rootItem = new JMenuItem("√");
+    sinItem = new JMenuItem("sin");
+    cosItem = new JMenuItem("cos");
+    tanItem = new JMenuItem("tan");
+
     addItem.addActionListener(this);
     subtractItem.addActionListener(this);
     multiplyItem.addActionListener(this);
     divideItem.addActionListener(this);
+    powerItem.addActionListener(this);
+
     helpItem = new JMenuItem("Help");
     quitItem = new JMenuItem("Quit");
+
     helpItem.addActionListener(this);
     quitItem.addActionListener(this);
 
@@ -76,6 +97,12 @@ public class Frac implements ActionListener {
     operation.add(subtractItem);
     operation.add(multiplyItem);
     operation.add(divideItem);
+    operation.add(powerItem);
+    operation.add(cubeItem);
+    operation.add(rootItem);
+    operation.add(sinItem);
+    operation.add(cosItem);
+    operation.add(tanItem);
     help.add(helpItem);
     quit.add(quitItem);
 
@@ -92,7 +119,10 @@ public class Frac implements ActionListener {
     panel.add(calculation);
     panel.add(calculate);
     panel.add(simplify);
-    panel.add(imgLabel);
+    panel.add(fracOneLabel);
+    panel.add(fracOneCalc);
+    panel.add(fracTwoLabel);
+    panel.add(fracTwoCalc);
 
     // adding panel + setting menu bar to frame
     frame.add(panel);
@@ -114,6 +144,8 @@ public class Frac implements ActionListener {
   public void actionPerformed(ActionEvent e) {
     String fracOneStr = fracOne.getText();
     String fracTwoStr = fracTwo.getText();
+    String fracOneCalcStr = fracOneCalc.getText();
+    String fracTwoCalcStr = fracTwoCalc.getText();
     String calcText = calculation.getText();
     String caseOperation = arithmeticSign.getText();
     
@@ -136,43 +168,50 @@ public class Frac implements ActionListener {
       arithmeticSign.setText("x");
     } else if (e.getSource() == divideItem) {
       arithmeticSign.setText("/");
+    } else if (e.getSource() == powerItem) {
+      arithmeticSign.setText("**");
     } else if (e.getSource() == calculate) {
       try {
+        
         int num1 = Integer.parseInt(fracOneStr.substring(0,fracOneStr.indexOf('/')));
         int denom1 = Integer.parseInt(fracOneStr.substring(fracOneStr.indexOf('/') + 1));
         int num2 = Integer.parseInt(fracTwoStr.substring(0,fracTwoStr.indexOf('/')));
         int denom2 = Integer.parseInt(fracTwoStr.substring(fracTwoStr.indexOf('/') + 1));
-
+        
         Operations firstFrac = new Operations(num1, denom1);
-
-        // System.out.println("sleep before");
-
-        imgLabel.setVisible(true);
-        Thread.sleep(2000);
-        System.out.println("sleep done");
-
-        
-        
-
         switch (caseOperation) {
           case "+":
             String add = firstFrac.addRationals(num2, denom2);
             calculation.setText(add);
+            fracOneCalc.setText("");
+            fracTwoCalc.setText("");
           break;
           case "-":
             String subtract = firstFrac.subtractRationals(num2, denom2);
             calculation.setText(subtract);
+            fracOneCalc.setText("");
+            fracTwoCalc.setText("");
           break;
           case "x":
             String multiply = firstFrac.multiplyRationals(num2, denom2);
             calculation.setText(multiply);
+            fracOneCalc.setText("");
+            fracTwoCalc.setText("");
           break;
           case "/":
             String divide = firstFrac.multiplyRationals(num2, denom2);
             calculation.setText(divide);
+            fracOneCalc.setText("");
+            fracTwoCalc.setText("");
           break;
+          case "**":
+            String squareOne = firstFrac.squareRational(num1, denom1);
+            String squareTwo = firstFrac.squareRational(num2, denom2);
+            fracOneCalc.setText(squareOne);
+            fracTwoCalc.setText(squareTwo);
+            calculation.setText("");
           default:
-          System.out.println("Not a proper operation");
+          System.out.println("Not a proper operation (205)");
           break;
         }
 
@@ -180,17 +219,29 @@ public class Frac implements ActionListener {
         System.out.println("ERROR: Input not properly integrated.");
       }
     } else if (e.getSource() == simplify) {
-      try {
+        try {
         int num1 = Integer.parseInt(fracOneStr.substring(0,fracOneStr.indexOf('/')));
         int denom1 = Integer.parseInt(fracOneStr.substring(fracOneStr.indexOf('/') + 1));
         int num2 = Integer.parseInt(fracTwoStr.substring(0,fracTwoStr.indexOf('/')));
         int denom2 = Integer.parseInt(fracTwoStr.substring(fracTwoStr.indexOf('/') + 1));
-        int calcNum = Integer.parseInt(calcText.substring(0, calcText.indexOf('/')));
-        int calcDenom = Integer.parseInt(calcText.substring(calcText.indexOf('/') + 1));
+
+        if (calcText != null) {
+          int calcNum = Integer.parseInt(calcText.substring(0, calcText.indexOf('/')));
+          int calcDenom = Integer.parseInt(calcText.substring(calcText.indexOf('/') + 1));
+          calculation.setText(reduceRational(calcNum, calcDenom));
+        } else {
+          int num1Calc = Integer.parseInt(fracOneCalcStr.substring(0, fracOneCalcStr.indexOf('/')));
+          int denom1Calc = Integer.parseInt(fracOneCalcStr.substring(fracOneCalcStr.indexOf('/') + 1));
+          int num2Calc = Integer.parseInt(fracTwoCalcStr.substring(0, fracTwoCalcStr.indexOf('/')));
+          int denom2Calc = Integer.parseInt(fracTwoCalcStr.substring(fracTwoCalcStr.indexOf('/') + 1));
+          fracOneCalc.setText(reduceRational(num1Calc, denom1Calc));
+          fracTwoCalc.setText(reduceRational(num2Calc, denom2Calc));
+        }
 
         fracOne.setText(reduceRational(num1, denom1));
         fracTwo.setText(reduceRational(num2, denom2));
-        calculation.setText(reduceRational(calcNum, calcDenom));
+        
+        
       } catch (Exception error) {
         System.out.println("ERROR: Input not properly integrated.");
       }
