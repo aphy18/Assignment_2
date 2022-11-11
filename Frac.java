@@ -15,7 +15,7 @@ public class Frac implements ActionListener {
   JMenuBar menuBar;
   JMenu operation, help, quit;
   JMenuItem addItem, subtractItem, multiplyItem, divideItem, helpItem, quitItem;
-  JMenuItem powerItem, cubeItem, rootItem, sinItem, cosItem, tanItem, decimalItem;
+  JMenuItem powerItem, cubeItem, rootItem, decimalItem, absItem, inverseItem;
 
   public Frac() {
     // setting frame
@@ -72,9 +72,9 @@ public class Frac implements ActionListener {
     cubeItem = new JMenuItem("**3");
     rootItem = new JMenuItem("√");
     decimalItem = new JMenuItem("decimal");
-    sinItem = new JMenuItem("sin");
-    cosItem = new JMenuItem("cos");
-    tanItem = new JMenuItem("tan");
+    absItem = new JMenuItem("| |");
+    inverseItem = new JMenuItem("f**(-1)");
+  
 
     addItem.addActionListener(this);
     subtractItem.addActionListener(this);
@@ -84,6 +84,8 @@ public class Frac implements ActionListener {
     cubeItem.addActionListener(this);
     rootItem.addActionListener(this);
     decimalItem.addActionListener(this);
+    absItem.addActionListener(this);
+    inverseItem.addActionListener(this);
 
     helpItem = new JMenuItem("Help");
     quitItem = new JMenuItem("Quit");
@@ -105,9 +107,8 @@ public class Frac implements ActionListener {
     operation.add(cubeItem);
     operation.add(rootItem);
     operation.add(decimalItem);
-    operation.add(sinItem);
-    operation.add(cosItem);
-    operation.add(tanItem);
+    operation.add(absItem);
+    operation.add(inverseItem);
     help.add(helpItem);
     quit.add(quitItem);
 
@@ -185,6 +186,10 @@ public class Frac implements ActionListener {
       arithmeticSign.setText( "√");
     } else if (e.getSource() == decimalItem) {
       arithmeticSign.setText( "to decimal");
+    } else if (e.getSource() == absItem) {
+      arithmeticSign.setText( "| |");
+    } else if (e.getSource() == inverseItem) {
+      arithmeticSign.setText("f**(-1)");
     } else if (e.getSource() == calculate) {
       try {
         int num1 = Integer.parseInt(fracOneStr.substring(0,fracOneStr.indexOf('/')));
@@ -242,10 +247,22 @@ public class Frac implements ActionListener {
           case "to decimal":
             String convertOne = firstFrac.toDecimal(num1, denom1);
             String convertTwo = firstFrac.toDecimal(num2, denom2);
-            System.out.println("CONVERT ONE: " + convertOne);
-            System.out.println("CONVERT TWO: " + convertTwo);
             fracOneCalc.setText(convertOne);
             fracTwoCalc.setText(convertTwo);
+            calculation.setText("");
+          break;
+          case "| |":
+            String absOne = firstFrac.absoluteValue(num1, denom1);
+            String absTwo = firstFrac.absoluteValue(num2, denom2);
+            fracOneCalc.setText(absOne);
+            fracTwoCalc.setText(absTwo);
+            calculation.setText("");
+          break;
+          case "f**(-1)":
+            String invOne = firstFrac.inverse(num1, denom1);
+            String invTwo = firstFrac.inverse(num2, denom2);
+            fracOneCalc.setText(invOne);
+            fracTwoCalc.setText(invTwo);
             calculation.setText("");
           break;
           default:

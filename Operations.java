@@ -114,15 +114,9 @@ public String inverse(int n1, int d1) {
 }
 
     public String absoluteValue(int n1, int d1) {
-        String concatFracs = n1 + "/" + d1;
-        String abs = "";
-        for (int i=0 ; i < concatFracs.length(); i++) {
-        if (concatFracs.indexOf("-") == -1) {
-            abs = "-" + n1 + "/" + d1;
-        } else {
-            abs = n1 + "/" + d1;
-        } 
-     }
-     return abs;
-  }
+       int absN1 = Math.abs(n1);
+       int absD1 = Math.abs(d1);
+       return absN1 + "/" + absD1;
+    }
 }
+
