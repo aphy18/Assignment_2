@@ -102,4 +102,27 @@ public String squareRootRational(int n1, int d1) {
     System.out.println("D1: " + sqrtD1);
     return twoDecimalPlaces.format(sqrtN1) + "/" + twoDecimalPlaces.format(sqrtD1);
     }
+
+public String toDecimal(int n1, int d1) {
+    DecimalFormat twoDecimalPlaces = new DecimalFormat("0.##");
+    double conversion = (double) n1 / d1;
+    return twoDecimalPlaces.format(conversion);
+}
+
+public String inverse(int n1, int d1) {
+    return d1 + "/" + n1;
+}
+
+    public String absoluteValue(int n1, int d1) {
+        String concatFracs = n1 + "/" + d1;
+        String abs = "";
+        for (int i=0 ; i < concatFracs.length(); i++) {
+        if (concatFracs.indexOf("-") == -1) {
+            abs = "-" + n1 + "/" + d1;
+        } else {
+            abs = n1 + "/" + d1;
+        } 
+     }
+     return abs;
+  }
 }

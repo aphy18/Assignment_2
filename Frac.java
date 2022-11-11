@@ -15,7 +15,7 @@ public class Frac implements ActionListener {
   JMenuBar menuBar;
   JMenu operation, help, quit;
   JMenuItem addItem, subtractItem, multiplyItem, divideItem, helpItem, quitItem;
-  JMenuItem powerItem, cubeItem, rootItem, sinItem, cosItem, tanItem;
+  JMenuItem powerItem, cubeItem, rootItem, sinItem, cosItem, tanItem, decimalItem;
 
   public Frac() {
     // setting frame
@@ -71,6 +71,7 @@ public class Frac implements ActionListener {
     powerItem = new JMenuItem("**");
     cubeItem = new JMenuItem("**3");
     rootItem = new JMenuItem("√");
+    decimalItem = new JMenuItem("decimal");
     sinItem = new JMenuItem("sin");
     cosItem = new JMenuItem("cos");
     tanItem = new JMenuItem("tan");
@@ -82,6 +83,7 @@ public class Frac implements ActionListener {
     powerItem.addActionListener(this);
     cubeItem.addActionListener(this);
     rootItem.addActionListener(this);
+    decimalItem.addActionListener(this);
 
     helpItem = new JMenuItem("Help");
     quitItem = new JMenuItem("Quit");
@@ -102,6 +104,7 @@ public class Frac implements ActionListener {
     operation.add(powerItem);
     operation.add(cubeItem);
     operation.add(rootItem);
+    operation.add(decimalItem);
     operation.add(sinItem);
     operation.add(cosItem);
     operation.add(tanItem);
@@ -143,6 +146,17 @@ public class Frac implements ActionListener {
     return numStr + '/' + denomStr;
   }
 
+  public void createPopupMenu() {
+    helperFrame = new JFrame();
+    helperPanel = new JPanel();
+    helperFrame.setSize(200,200);
+    helperFrame.setVisible(true);
+    helperText = new JTextArea();
+    helperText.setText("The menubar is where you're able to access the resources of the application\n1.Select an operation that you would like to use during calculation\n2.Click the calculate button to view the final results\n3.Click the simplify button to reducce all fractions\n4.Select quit on the menubar to close the application.\nWARNING: ALL inputs must be typed in a fraction format in order for the application to work properly");
+    helperPanel.add(helperText);
+    helperFrame.add(helperPanel);
+  }
+
   public void actionPerformed(ActionEvent e) {
     String fracOneStr = fracOne.getText();
     String fracTwoStr = fracTwo.getText();
@@ -154,14 +168,7 @@ public class Frac implements ActionListener {
     if (e.getSource() == quitItem) {
       System.exit(0);
     } else if (e.getSource() == helpItem) {
-      helperFrame = new JFrame();
-      helperPanel = new JPanel();
-      helperFrame.setSize(200,200);
-      helperFrame.setVisible(true);
-      helperText = new JTextArea();
-      helperText.setText("The menubar is where you're able to access the resources of the application\n1.Select an operation that you would like to use during calculation\n2.Click the calculate button to view the final results\n3.Click the simplify button to reducce all fractions\n4.Select quit on the menubar to close the application.\nWARNING: ALL inputs must be typed in a fraction format in order for the application to work properly");
-      helperPanel.add(helperText);
-      helperFrame.add(helperPanel);
+      createPopupMenu();
     } else if (e.getSource() == addItem) {
       arithmeticSign.setText("+");
     } else if (e.getSource() == subtractItem) {
@@ -176,9 +183,10 @@ public class Frac implements ActionListener {
       arithmeticSign.setText("**3");
     } else if (e.getSource() == rootItem) {
       arithmeticSign.setText( "√");
+    } else if (e.getSource() == decimalItem) {
+      arithmeticSign.setText( "to decimal");
     } else if (e.getSource() == calculate) {
       try {
-        
         int num1 = Integer.parseInt(fracOneStr.substring(0,fracOneStr.indexOf('/')));
         int denom1 = Integer.parseInt(fracOneStr.substring(fracOneStr.indexOf('/') + 1));
         int num2 = Integer.parseInt(fracTwoStr.substring(0,fracTwoStr.indexOf('/')));
@@ -229,6 +237,15 @@ public class Frac implements ActionListener {
             String sqrtTwo = firstFrac.squareRootRational(num2, denom2);
             fracOneCalc.setText(sqrtOne);
             fracTwoCalc.setText(sqrtTwo);
+            calculation.setText("");
+          break;
+          case "to decimal":
+            String convertOne = firstFrac.toDecimal(num1, denom1);
+            String convertTwo = firstFrac.toDecimal(num2, denom2);
+            System.out.println("CONVERT ONE: " + convertOne);
+            System.out.println("CONVERT TWO: " + convertTwo);
+            fracOneCalc.setText(convertOne);
+            fracTwoCalc.setText(convertTwo);
             calculation.setText("");
           break;
           default:
