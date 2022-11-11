@@ -1,4 +1,5 @@
 // this file contains all basic arithmetic operators to be used in Frac.java
+import java.text.DecimalFormat;
 
 
 public class Operations {
@@ -92,4 +93,13 @@ public String cubeRational(int n1, int d1) {
     return cubeN1 + "/" + cubeD1;
 }
 
+public String squareRootRational(int n1, int d1) {
+    DecimalFormat twoDecimalPlaces = new DecimalFormat("0.##");
+    double sqrtN1 = Math.sqrt((double) n1);
+    double sqrtD1 = Math.sqrt((double) d1);
+
+    System.out.println("N1: " + sqrtN1);
+    System.out.println("D1: " + sqrtD1);
+    return twoDecimalPlaces.format(sqrtN1) + "/" + twoDecimalPlaces.format(sqrtD1);
+    }
 }

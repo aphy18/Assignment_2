@@ -81,6 +81,7 @@ public class Frac implements ActionListener {
     divideItem.addActionListener(this);
     powerItem.addActionListener(this);
     cubeItem.addActionListener(this);
+    rootItem.addActionListener(this);
 
     helpItem = new JMenuItem("Help");
     quitItem = new JMenuItem("Quit");
@@ -173,6 +174,8 @@ public class Frac implements ActionListener {
       arithmeticSign.setText("**");
     } else if (e.getSource() == cubeItem) {
       arithmeticSign.setText("**3");
+    } else if (e.getSource() == rootItem) {
+      arithmeticSign.setText( "√");
     } else if (e.getSource() == calculate) {
       try {
         
@@ -219,6 +222,13 @@ public class Frac implements ActionListener {
             String cubeTwo = firstFrac.cubeRational(num2, denom2);
             fracOneCalc.setText(cubeOne);
             fracTwoCalc.setText(cubeTwo);
+            calculation.setText("");
+          break;
+          case "√":
+            String sqrtOne = firstFrac.squareRootRational(num1, denom1);
+            String sqrtTwo = firstFrac.squareRootRational(num2, denom2);
+            fracOneCalc.setText(sqrtOne);
+            fracTwoCalc.setText(sqrtTwo);
             calculation.setText("");
           break;
           default:
