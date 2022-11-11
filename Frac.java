@@ -80,6 +80,7 @@ public class Frac implements ActionListener {
     multiplyItem.addActionListener(this);
     divideItem.addActionListener(this);
     powerItem.addActionListener(this);
+    cubeItem.addActionListener(this);
 
     helpItem = new JMenuItem("Help");
     quitItem = new JMenuItem("Quit");
@@ -144,8 +145,8 @@ public class Frac implements ActionListener {
   public void actionPerformed(ActionEvent e) {
     String fracOneStr = fracOne.getText();
     String fracTwoStr = fracTwo.getText();
-    String fracOneCalcStr = fracOneCalc.getText();
-    String fracTwoCalcStr = fracTwoCalc.getText();
+    // String fracOneCalcStr = fracOneCalc.getText();
+    // String fracTwoCalcStr = fracTwoCalc.getText();
     String calcText = calculation.getText();
     String caseOperation = arithmeticSign.getText();
     
@@ -170,6 +171,8 @@ public class Frac implements ActionListener {
       arithmeticSign.setText("/");
     } else if (e.getSource() == powerItem) {
       arithmeticSign.setText("**");
+    } else if (e.getSource() == cubeItem) {
+      arithmeticSign.setText("**3");
     } else if (e.getSource() == calculate) {
       try {
         
@@ -210,6 +213,14 @@ public class Frac implements ActionListener {
             fracOneCalc.setText(squareOne);
             fracTwoCalc.setText(squareTwo);
             calculation.setText("");
+          break;
+          case "**3":
+            String cubeOne = firstFrac.cubeRational(num1, denom1);
+            String cubeTwo = firstFrac.cubeRational(num2, denom2);
+            fracOneCalc.setText(cubeOne);
+            fracTwoCalc.setText(cubeTwo);
+            calculation.setText("");
+          break;
           default:
           System.out.println("Not a proper operation (205)");
           break;

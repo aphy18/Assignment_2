@@ -83,4 +83,13 @@ public String squareRational(int n1, int d1) {
     return squareN1 + "/" + squareD1;
 }
 
+public String cubeRational(int n1, int d1) {
+    double cubeN1 = Math.pow((double) n1, 3);
+    double cubeD1 = Math.pow((double) d1, 3);
+
+    System.out.println("N1: " + cubeN1);
+    System.out.println("D1: " + cubeD1);
+    return cubeN1 + "/" + cubeD1;
+}
+
 }
