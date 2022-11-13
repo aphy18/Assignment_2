@@ -1,4 +1,3 @@
-package GUI_Calculator;
 import javax.swing.*;
 
 import java.awt.event.*;
@@ -193,7 +192,7 @@ public class Frac implements ActionListener {
     // String fracTwoCalcStr = fracTwoCalc.getText();
     String calcText = calculation.getText();
     String caseOperation = arithmeticSign.getText();
-    ThreadPause timer = new ThreadPause();
+    
     
     if (e.getSource() == quitItem) {
       System.exit(0);
@@ -308,21 +307,18 @@ public class Frac implements ActionListener {
         int num = Integer.parseInt(fracOneStr.substring(0,fracOneStr.indexOf('/')));
         int denom = Integer.parseInt(fracOneStr.substring(fracOneStr.indexOf('/') + 1));
         hcf(num, denom);  
-        timer.wait(3);
         fracOne.setText(reduceRational(num, denom));
 
     } else if (e.getSource() == simplifyFracTwo) {
       int num = Integer.parseInt(fracTwoStr.substring(0,fracTwoStr.indexOf('/')));
       int denom = Integer.parseInt(fracTwoStr.substring(fracTwoStr.indexOf('/') + 1));
       hcf(num, denom);  
-      timer.wait(3);
       fracTwo.setText(reduceRational(num, denom));
 
     } else if (e.getSource() == simplifyCalc) {
       int num = Integer.parseInt(calcText.substring(0, calcText.indexOf('/')));
       int denom = Integer.parseInt(calcText.substring(calcText.indexOf('/') + 1));
       hcf(num, denom);  
-      timer.wait(3);
       calculation.setText(reduceRational(num, denom));
 
     } else if (e.getSource() == hexadecimal) {

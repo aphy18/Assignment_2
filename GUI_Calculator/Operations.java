@@ -1,4 +1,3 @@
-package GUI_Calculator;
 // this file contains all basic arithmetic operators to be used in Frac.java
 import java.text.DecimalFormat;
 
