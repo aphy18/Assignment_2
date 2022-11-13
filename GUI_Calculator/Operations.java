@@ -1,3 +1,4 @@
+package GUI_Calculator;
 // this file contains all basic arithmetic operators to be used in Frac.java
 import java.text.DecimalFormat;
 
@@ -118,5 +119,52 @@ public String inverse(int n1, int d1) {
        int absD1 = Math.abs(d1);
        return absN1 + "/" + absD1;
     }
-}
 
+    // gives u remainders
+    public String base(int i) {
+        String letters="";
+        String reverseStr = "";
+        int remainderNum = 0;
+        String remainder = "";
+        boolean isCompleted=false;
+    
+        while(!isCompleted) {
+            remainderNum = i % 16;
+            i = i / 16;
+            if (i % 16 == 0) {
+                isCompleted = true;
+            } else if (remainderNum < 10) {
+                remainder = "0" + String.valueOf(remainderNum);
+            } else {
+                remainder = String.valueOf(remainderNum);
+            }
+            letters = remainderNum + letters;
+        }
+      
+        return letters;
+    }
+
+    // converts into digits of hexa
+    public String addLetters (String str) {
+        String currentStr = "";
+        String finalStr = "";
+        String values = "0123456789ABCDEFG";
+        char[] alphabet = values.toCharArray();
+
+        System.out.println("alpabet length: " + alphabet.length);
+
+        for (int i=0; i < (str.length()); i = i + 2) {
+            currentStr = str.substring(i, i = i + 2);
+            System.out.println("Current: " + currentStr);
+            finalStr = finalStr + alphabet[Integer.parseInt(currentStr)];
+        }
+        System.out.println("FINAL STRING: " + finalStr);
+        return finalStr;
+    }
+
+    }
+  
+
+
+
+//  

@@ -1,3 +1,4 @@
+package GUI_Calculator;
 class ThreadPause {
   // method to pause the string 
   // here we will pass the time in seconds
